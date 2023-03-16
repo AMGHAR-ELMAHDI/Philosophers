@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philosophers.h                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eamghar <eamghar@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/16 16:38:53 by eamghar           #+#    #+#             */
+/*   Updated: 2023/03/16 18:40:44 by eamghar          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
@@ -25,7 +36,7 @@ typedef struct s_push
 	t_list			*pheada;
 	int				i;
 	long long		current_time;
-	struct timeval 	start;
+	struct timeval	start;
 	int				philo_num;
 	int				time_to_die;
 	int				time_to_eat;
@@ -33,19 +44,21 @@ typedef struct s_push
 	int				time_must_eat;
 }				t_push;
 
-void	ft_param_init(int ac, char **av, t_push *philo);
-void	ft_parcing(int ac, char **av, t_push *philo);
-void	ft_error(char *str);
-void	ft_lstadd_back(t_list **lst, t_list *new);
-void	ft_lstadd_front(t_list **lst, t_list *new);
-t_list	*ft_lstnew(int data, t_push *philo);
-void	ft_clear_lst(t_list **lst);
-long	ft_atoi(const char *str);
-char	*ft_strjoin2(char *s1, char *s2);
-int		ft_isdigit(int c);
-int		ft_check_int(char **str);
-char	**ft_split(char const *s, char c);
-char	*ft_strjoin(int size, char **strs, char *sep);
-int		ft_strlen(char *str);	
+void		ft_param_init(int ac, char **av, t_push *philo);
+void		ft_parcing(int ac, char **av, t_push *philo);
+void		ft_error(char *str);
+void		ft_lstadd_back(t_list **lst, t_list *new);
+void		ft_lstadd_front(t_list **lst, t_list *new);
+t_list		*ft_lstnew(int data, t_push *philo);
+void		ft_clear_lst(t_list **lst);
+long		ft_atoi(const char *str);
+char		*ft_strjoin2(char *s1, char *s2);
+int			ft_isdigit(int c);
+int			ft_check_int(char **str);
+char		**ft_split(char const *s, char c);
+char		*ft_strjoin(int size, char **strs, char *sep);
+int			ft_strlen(char *str);
+long long	get_time(t_push *philo);
+void		ft_execute_threads(t_list *philo);
 
 #endif

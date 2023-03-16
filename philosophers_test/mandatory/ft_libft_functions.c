@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_libft_functions.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eamghar <eamghar@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/16 16:38:05 by eamghar           #+#    #+#             */
+/*   Updated: 2023/03/16 16:40:24 by eamghar          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../philosophers.h"
 
 void	ft_lstadd_back(t_list **lst, t_list *new)
@@ -45,7 +57,7 @@ t_list	*ft_lstnew(int data, t_push *philo)
 	new = (t_list *)malloc(sizeof(t_list));
 	if (!new)
 		ft_error("Malloc Error");
-	if(pthread_mutex_init(&new->fork, NULL) != 0)
+	if (pthread_mutex_init(&new->fork, NULL) != 0)
 		ft_error("Mutex Init Error");
 	new->philo = philo;
 	new->philo->time_must_eat = 0;
