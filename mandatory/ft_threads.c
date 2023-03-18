@@ -6,7 +6,7 @@
 /*   By: eamghar <eamghar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 15:20:19 by eamghar           #+#    #+#             */
-/*   Updated: 2023/03/18 15:58:54 by eamghar          ###   ########.fr       */
+/*   Updated: 2023/03/18 16:53:32 by eamghar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,36 +31,48 @@ void	ft_create_threads(t_push *philo)
 	while(1);
 }
 
-
-
 void	*ft_execute_threads(void *heada)
 {
 	t_list	*thr;
 
 	thr = (t_list *)heada;
 	while(1)
+	{
 		ft_threads_eating(thr);
+		ft_threads_dying(thr);
+	}
 	return (0);
+}
+
+void	ft_threads_dying(t_list *thr)
+{
+	if(thr->last_eat >= thr->philo->time_to_die)
+	{
+		ft_print_status(thr, "died");
+		exit(0);
+	}	
+}
+
+void	ft_print_status(t_list *thr, char *str)
+{
+	pthread_mutex_lock(&thr->philo->print);
+	usleep(10);
+	printf("%lld\tms\t%d\t%s\n", get_time(thr->philo), thr->data, str);
+	pthread_mutex_unlock(&thr->philo->print);
 }
 
 void	*ft_threads_eating(t_list *thr)
 {
 	pthread_mutex_lock(&thr->fork);
-	printf("%lld  ms\t%d\thas taken a fork\n", get_time(thr->philo), thr->data);
-	
+	ft_print_status(thr, "has taken a fork");
 	pthread_mutex_lock(&thr->next->fork);
-	printf("%lld  ms\t%d\thas taken a fork\n", get_time(thr->philo), thr->data);
-	
-	printf("%lld  ms\t%d\tis eating\n", get_time(thr->philo), thr->data);
-	
+	ft_print_status(thr, "has taken a fork");
+	ft_print_status(thr, "is eating");
 	usleep(thr->philo->time_to_eat * 1000);
-
 	pthread_mutex_unlock(&thr->fork);
 	pthread_mutex_unlock(&thr->next->fork);
-	
-	printf("%lld  ms\t%d\tis sleeping\n", get_time(thr->philo), thr->data);
+	ft_print_status(thr, "is sleeping");
 	usleep(thr->philo->time_to_sleep * 1000);
-	
-	printf("%lld  ms\t%d\tis thinking\n", get_time(thr->philo), thr->data);
+	ft_print_status(thr, "is thinking");
 	return (NULL);
 }

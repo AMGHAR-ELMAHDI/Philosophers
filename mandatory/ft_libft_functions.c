@@ -6,7 +6,7 @@
 /*   By: eamghar <eamghar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 16:38:05 by eamghar           #+#    #+#             */
-/*   Updated: 2023/03/18 15:17:41 by eamghar          ###   ########.fr       */
+/*   Updated: 2023/03/18 16:50:30 by eamghar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,7 @@ t_list	*ft_lstnew(int data, t_push *philo)
 	if (pthread_mutex_init(&new->fork, NULL) != 0)
 		ft_error("Mutex Init Error");
 	new->philo = philo;
-	new->philo->time_must_eat = 0;
-	new->philo->time_to_die = 0;
-	new->philo->time_to_sleep = 0;
+	new->last_eat = 0;
 	new->next = new;
 	new->prev = new;
 	new->data = data;

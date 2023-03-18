@@ -6,7 +6,7 @@
 /*   By: eamghar <eamghar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 16:38:38 by eamghar           #+#    #+#             */
-/*   Updated: 2023/03/18 15:55:37 by eamghar          ###   ########.fr       */
+/*   Updated: 2023/03/18 16:25:40 by eamghar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	ft_param_init(int ac, char **av, t_push *philo)
 		philo->time_must_eat = ft_atoi(av[5]);
 	else
 		philo->time_must_eat = 0;
+	if (pthread_mutex_init(&philo->print, NULL) != 0)
+		ft_error("Mutex Init Error");
 }
 
 void	ft_parcing(int ac, char **av, t_push *philo)
@@ -57,7 +59,7 @@ long long	get_time(t_push *philo)
 	struct timeval	end;
 
 	gettimeofday(&end, NULL);
-	return(((end.tv_sec * 1000 )+ (end.tv_usec / 1000)) - 
+	return(((end.tv_sec * 1000 ) + (end.tv_usec / 1000)) - 
 		((philo->start.tv_sec * 1000) + (philo->start.tv_usec / 1000)));
 }
 
