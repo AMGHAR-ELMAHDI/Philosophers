@@ -6,7 +6,7 @@
 /*   By: eamghar <eamghar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 15:20:19 by eamghar           #+#    #+#             */
-/*   Updated: 2023/03/18 16:53:32 by eamghar          ###   ########.fr       */
+/*   Updated: 2023/03/18 18:47:31 by eamghar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	ft_create_threads(t_push *philo)
 	gettimeofday(&philo->start, NULL);
 	while (philo->heada)
 	{
+		philo->heada->last_eat = get_time(philo);
 		if (philo->heada->data % 2)
 			usleep(100);
 		if (pthread_create(&philo->heada->id, NULL, \
@@ -46,11 +47,11 @@ void	*ft_execute_threads(void *heada)
 
 void	ft_threads_dying(t_list *thr)
 {
-	if(thr->last_eat >= thr->philo->time_to_die)
+	if((get_time(thr->philo) - (thr->last_eat)) >= thr->philo->time_to_die)
 	{
 		ft_print_status(thr, "died");
 		exit(0);
-	}	
+	}
 }
 
 void	ft_print_status(t_list *thr, char *str)
@@ -68,6 +69,7 @@ void	*ft_threads_eating(t_list *thr)
 	pthread_mutex_lock(&thr->next->fork);
 	ft_print_status(thr, "has taken a fork");
 	ft_print_status(thr, "is eating");
+	thr->last_eat = get_time(thr->philo);
 	usleep(thr->philo->time_to_eat * 1000);
 	pthread_mutex_unlock(&thr->fork);
 	pthread_mutex_unlock(&thr->next->fork);
