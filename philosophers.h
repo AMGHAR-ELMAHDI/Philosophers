@@ -6,7 +6,7 @@
 /*   By: eamghar <eamghar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 16:38:53 by eamghar           #+#    #+#             */
-/*   Updated: 2023/03/18 18:40:39 by eamghar          ###   ########.fr       */
+/*   Updated: 2023/03/18 18:52:38 by eamghar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_push
 	long long		current_time;
 	struct timeval	start;
 	pthread_mutex_t	print;
+	pthread_mutex_t	death;
 	int				philo_num;
 	int				time_to_die;
 	int				time_to_eat;

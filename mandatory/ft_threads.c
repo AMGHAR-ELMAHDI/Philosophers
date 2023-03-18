@@ -6,7 +6,7 @@
 /*   By: eamghar <eamghar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 15:20:19 by eamghar           #+#    #+#             */
-/*   Updated: 2023/03/18 18:47:31 by eamghar          ###   ########.fr       */
+/*   Updated: 2023/03/18 19:08:18 by eamghar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,15 @@ void	*ft_execute_threads(void *heada)
 }
 
 void	ft_threads_dying(t_list *thr)
-{
+{	
+	pthread_mutex_lock(&thr->philo->death);
 	if((get_time(thr->philo) - (thr->last_eat)) >= thr->philo->time_to_die)
 	{
 		ft_print_status(thr, "died");
+		pthread_mutex_unlock(&thr->philo->death);
 		exit(0);
 	}
+	pthread_mutex_unlock(&thr->philo->death);
 }
 
 void	ft_print_status(t_list *thr, char *str)

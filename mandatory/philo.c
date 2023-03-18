@@ -6,7 +6,7 @@
 /*   By: eamghar <eamghar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 16:38:38 by eamghar           #+#    #+#             */
-/*   Updated: 2023/03/18 18:41:00 by eamghar          ###   ########.fr       */
+/*   Updated: 2023/03/18 18:52:49 by eamghar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	ft_param_init(int ac, char **av, t_push *philo)
 	else
 		philo->time_must_eat = 0;
 	if (pthread_mutex_init(&philo->print, NULL) != 0)
+		ft_error("Mutex Init Error");
+	if (pthread_mutex_init(&philo->death, NULL) != 0)
 		ft_error("Mutex Init Error");
 }
 
