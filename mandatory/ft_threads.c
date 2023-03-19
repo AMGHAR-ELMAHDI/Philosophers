@@ -6,7 +6,7 @@
 /*   By: eamghar <eamghar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 15:20:19 by eamghar           #+#    #+#             */
-/*   Updated: 2023/03/18 19:08:18 by eamghar          ###   ########.fr       */
+/*   Updated: 2023/03/19 12:58:58 by eamghar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,22 @@ void	*ft_execute_threads(void *heada)
 	t_list	*thr;
 
 	thr = (t_list *)heada;
-	while(1)
+	while(thr->philo->thr_dead == 0)
 	{
-		ft_threads_eating(thr);
 		ft_threads_dying(thr);
+		ft_threads_eating(thr);
 	}
 	return (0);
 }
 
 void	ft_threads_dying(t_list *thr)
 {	
+	if (thr->philo->heada->data % 2)
+		usleep(100);
 	pthread_mutex_lock(&thr->philo->death);
 	if((get_time(thr->philo) - (thr->last_eat)) >= thr->philo->time_to_die)
 	{
+		thr->philo->thr_dead = 1;
 		ft_print_status(thr, "died");
 		pthread_mutex_unlock(&thr->philo->death);
 		exit(0);
@@ -57,11 +60,20 @@ void	ft_threads_dying(t_list *thr)
 	pthread_mutex_unlock(&thr->philo->death);
 }
 
+void	ft_go_to_sleep(size_t value, t_list *thr)
+{
+	size_t	current;
+
+	current = get_time(thr->philo);
+	while(get_time(thr->philo) < current + value)
+		usleep(10);
+}
+
 void	ft_print_status(t_list *thr, char *str)
 {
 	pthread_mutex_lock(&thr->philo->print);
 	usleep(10);
-	printf("%lld\tms\t%d\t%s\n", get_time(thr->philo), thr->data, str);
+	printf("%lld\t%d\t%s\n", get_time(thr->philo), thr->data, str);
 	pthread_mutex_unlock(&thr->philo->print);
 }
 
@@ -73,11 +85,11 @@ void	*ft_threads_eating(t_list *thr)
 	ft_print_status(thr, "has taken a fork");
 	ft_print_status(thr, "is eating");
 	thr->last_eat = get_time(thr->philo);
-	usleep(thr->philo->time_to_eat * 1000);
+	tf_go_to_sleep(thr->philo->time_to_eat * 1000, thr);
 	pthread_mutex_unlock(&thr->fork);
 	pthread_mutex_unlock(&thr->next->fork);
 	ft_print_status(thr, "is sleeping");
-	usleep(thr->philo->time_to_sleep * 1000);
+	tf_go_to_sleep(thr->philo->time_to_sleep * 1000, thr);
 	ft_print_status(thr, "is thinking");
 	return (NULL);
 }

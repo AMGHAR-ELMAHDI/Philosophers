@@ -6,7 +6,7 @@
 /*   By: eamghar <eamghar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 16:38:38 by eamghar           #+#    #+#             */
-/*   Updated: 2023/03/18 18:52:49 by eamghar          ###   ########.fr       */
+/*   Updated: 2023/03/19 12:23:28 by eamghar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	ft_param_init(int ac, char **av, t_push *philo)
 {
 	if (ac < 5 || ac > 6)
 		ft_error("Wrong Numebr of Arguments");
+	philo->thr_dead = 0;
 	philo->philo_num = ft_atoi(av[1]);
 	philo->time_to_die = ft_atoi(av[2]);
 	philo->time_to_eat = ft_atoi(av[3]);
