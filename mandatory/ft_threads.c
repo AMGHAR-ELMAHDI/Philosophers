@@ -6,7 +6,7 @@
 /*   By: eamghar <eamghar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 15:20:19 by eamghar           #+#    #+#             */
-/*   Updated: 2023/03/19 17:05:46 by eamghar          ###   ########.fr       */
+/*   Updated: 2023/03/19 17:54:24 by eamghar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,24 +83,18 @@ void	*ft_threads_eating(t_list *thr)
 {
 	pthread_mutex_lock(&thr->fork);
 	ft_print_status(thr, "has taken a fork");
-	
 	pthread_mutex_lock(&thr->next->fork);
 	ft_print_status(thr, "has taken a fork");
-	
 	if(thr->philo->time_must_eat != 0)
 		ft_time_must_eat(thr);
-	
 	ft_print_status(thr, "is eating");
 	thr->must_eat++;
 	thr->last_eat = get_time(thr->philo);
 	ft_go_to_sleep(thr->philo->time_to_eat);
-	
 	pthread_mutex_unlock(&thr->fork);
 	pthread_mutex_unlock(&thr->next->fork);
-	
 	ft_print_status(thr, "is sleeping");
 	ft_go_to_sleep(thr->philo->time_to_sleep);
-	
 	ft_print_status(thr, "is thinking");
 	return (NULL);
 }
@@ -118,12 +112,5 @@ void	ft_time_must_eat(t_list *thr)
 			return;
 		thr = thr->next;
 	}
-	printf("---------------here---------------\n");
-	i = 0;
-	while (i < thr->philo->philo_num)
-	{
-		printf(" %d")
-	}
-	
 	exit(0);
 }
