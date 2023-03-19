@@ -6,7 +6,7 @@
 /*   By: eamghar <eamghar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 15:20:19 by eamghar           #+#    #+#             */
-/*   Updated: 2023/03/19 17:54:24 by eamghar          ###   ########.fr       */
+/*   Updated: 2023/03/19 18:21:45 by eamghar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_create_threads(t_push *philo)
 		if (philo->heada == philo->pheada)
 			break ;
 	}
-	while(1)
+	while (1)
 	{
 		ft_threads_dying(philo->heada);
 		philo->heada = philo->heada->next;
@@ -41,18 +41,15 @@ void	*ft_execute_threads(void *heada)
 	t_list	*thr;
 
 	thr = (t_list *)heada;
-	while(thr->philo->thr_dead == 0)
-	{
+	while (thr->philo->thr_dead == 0)
 		ft_threads_eating(thr);
-		// ft_threads_dying(thr);
-	}
 	return (0);
 }
 
 void	ft_threads_dying(t_list *thr)
 {
 	pthread_mutex_lock(&thr->philo->death);
-	if((get_time(thr->philo) - (thr->last_eat)) > thr->philo->time_to_die)
+	if ((get_time(thr->philo) - (thr->last_eat)) > thr->philo->time_to_die)
 	{
 		thr->philo->thr_dead = 1;
 		ft_print_status(thr, "died");
@@ -67,7 +64,7 @@ void	ft_go_to_sleep(long long value)
 	long long	current;
 
 	current = get_current_time();
-	while(get_current_time() < current + value)
+	while (get_current_time() < current + value)
 		usleep(100);
 }
 
@@ -85,7 +82,7 @@ void	*ft_threads_eating(t_list *thr)
 	ft_print_status(thr, "has taken a fork");
 	pthread_mutex_lock(&thr->next->fork);
 	ft_print_status(thr, "has taken a fork");
-	if(thr->philo->time_must_eat != 0)
+	if (thr->philo->time_must_eat != 0)
 		ft_time_must_eat(thr);
 	ft_print_status(thr, "is eating");
 	thr->must_eat++;
@@ -104,12 +101,12 @@ void	ft_time_must_eat(t_list *thr)
 	int	i;
 
 	i = 0;
-	while(i < thr->philo->philo_num)
+	while (i < thr->philo->philo_num)
 	{
-		if(thr->must_eat == thr->philo->time_must_eat)
+		if (thr->must_eat == thr->philo->time_must_eat)
 			i++;
 		else
-			return;
+			return ;
 		thr = thr->next;
 	}
 	exit(0);

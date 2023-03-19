@@ -6,7 +6,7 @@
 /*   By: eamghar <eamghar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 16:38:14 by eamghar           #+#    #+#             */
-/*   Updated: 2023/03/16 16:38:18 by eamghar          ###   ########.fr       */
+/*   Updated: 2023/03/19 18:19:58 by eamghar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static	char	**error_malloc(char **tab)
 	unsigned int	i;
 
 	i = 0;
-	while (tab[i])
+	while  (tab[i])
 		free(tab[i++]);
 	free(tab);
 	return (NULL);
@@ -30,14 +30,14 @@ static	int	word_count(const char *str, char c)
 
 	i = 0;
 	count = 0;
-	while (str[i])
+	while  (str[i])
 	{
-		if (str[i] == c)
+		if  (str[i] == c)
 			i++;
 		else
 		{
 			count++;
-			while (str[i] != c && str[i])
+			while  (str[i] != c && str[i])
 				i++;
 		}
 	}
@@ -51,19 +51,19 @@ static	char	*get_word(const char *s1, int *index, char c)
 	int		i;
 
 	word_len = 0;
-	while (s1[*index] == c)
+	while  (s1[*index] == c)
 		(*index)++;
 	i = *index;
-	while (s1[i] && s1[i] != c)
+	while  (s1[i] && s1[i] != c)
 	{
 		word_len++;
 		i++;
 	}
 	copy = malloc(sizeof(char) * (word_len + 1));
-	if (!copy)
+	if  (!copy)
 		ft_error("Malloc Error");
 	i = 0;
-	while (s1[*index] && s1[*index] != c)
+	while  (s1[*index] && s1[*index] != c)
 		copy[i++] = s1[(*index)++];
 	copy[i] = '\0';
 	return (copy);
@@ -78,16 +78,16 @@ char	**ft_split(char const *s, char c)
 
 	index = 0;
 	i = 0;
-	if (!s)
+	if  (!s)
 		return (NULL);
 	wc = word_count(s, c);
 	arr = malloc(sizeof(char *) * (wc + 1));
-	if (!arr)
+	if  (!arr)
 		ft_error("Malloc Error");
-	while (i < wc)
+	while  (i < wc)
 	{
 		arr[i] = get_word(s, &index, c);
-		if (!arr[i])
+		if  (!arr[i])
 			return (error_malloc(arr));
 		i++;
 	}

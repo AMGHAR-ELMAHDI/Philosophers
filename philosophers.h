@@ -6,11 +6,11 @@
 /*   By: eamghar <eamghar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 16:38:53 by eamghar           #+#    #+#             */
-/*   Updated: 2023/03/19 17:01:01 by eamghar          ###   ########.fr       */
+/*   Updated: 2023/03/19 18:21:02 by eamghar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILOSOPHERS_H
+#if ndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
 # include<stdio.h>
@@ -19,7 +19,7 @@
 # include<math.h>
 # include<stdlib.h>
 # include<sys/time.h>
-#include <string.h>
+# include <string.h>
 
 typedef struct s_list
 {
@@ -73,4 +73,4 @@ void		ft_go_to_sleep(long long value);
 long long	get_current_time();
 void	ft_time_must_eat(t_list *thr);
 
-#endif
+#endif 

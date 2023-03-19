@@ -6,7 +6,7 @@
 /*   By: eamghar <eamghar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 16:38:38 by eamghar           #+#    #+#             */
-/*   Updated: 2023/03/19 17:04:49 by eamghar          ###   ########.fr       */
+/*   Updated: 2023/03/19 18:22:57 by eamghar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ long long	get_time(t_push *philo)
 	struct timeval	end;
 
 	gettimeofday(&end, NULL);
-	return(((end.tv_sec * 1000 ) + (end.tv_usec / 1000)) - 
+	return (((end.tv_sec * 1000 ) + (end.tv_usec / 1000)) -
 		((philo->start.tv_sec * 1000) + (philo->start.tv_usec / 1000)));
 }
 
@@ -70,5 +70,5 @@ long long	get_current_time()
 	struct timeval	end;
 
 	gettimeofday(&end, NULL);
-	return((end.tv_sec * 1000 ) + (end.tv_usec / 1000));
+	return ((end.tv_sec * 1000 ) + (end.tv_usec / 1000));
 }
