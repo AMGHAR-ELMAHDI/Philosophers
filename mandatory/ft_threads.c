@@ -6,13 +6,13 @@
 /*   By: eamghar <eamghar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 15:20:19 by eamghar           #+#    #+#             */
-/*   Updated: 2023/03/19 18:33:00 by eamghar          ###   ########.fr       */
+/*   Updated: 2023/03/19 19:20:43 by eamghar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
 
-void	ft_create_threads(t_push *philo)
+int	ft_create_threads(t_push *philo)
 {
 	philo->pheada = philo->heada;
 	gettimeofday(&philo->start, NULL);
@@ -23,7 +23,7 @@ void	ft_create_threads(t_push *philo)
 		philo->heada->last_eat = get_time(philo);
 		if (pthread_create(&philo->heada->id, NULL, \
 		&ft_execute_threads, philo->heada) != 0)
-			ft_error("Thread Creation Error");
+			return (1);
 		pthread_detach(philo->heada->id);
 		philo->heada = philo->heada->next;
 		if (philo->heada == philo->pheada)
@@ -31,9 +31,16 @@ void	ft_create_threads(t_push *philo)
 	}
 	while (1)
 	{
-		ft_threads_dying(philo->heada);
+		if (ft_threads_dying(philo->heada) == 1)
+			return (1);
+		if (philo->time_must_eat != 0)
+		{
+			if (ft_time_must_eat(philo->heada) == 1)
+				return (1);
+		}
 		philo->heada = philo->heada->next;
 	}
+	return (0);
 }
 
 void	*ft_execute_threads(void *heada)
@@ -42,11 +49,14 @@ void	*ft_execute_threads(void *heada)
 
 	thr = (t_list *)heada;
 	while (thr->philo->thr_dead == 0)
-		ft_threads_eating(thr);
+	{
+		if (ft_threads_eating(thr) == 1)
+			return (NULL);
+	}
 	return (0);
 }
 
-void	ft_threads_dying(t_list *thr)
+int	ft_threads_dying(t_list *thr)
 {
 	pthread_mutex_lock(&thr->philo->death);
 	if ((get_time(thr->philo) - (thr->last_eat)) > thr->philo->time_to_die)
@@ -54,9 +64,10 @@ void	ft_threads_dying(t_list *thr)
 		thr->philo->thr_dead = 1;
 		ft_print_status(thr, "died");
 		pthread_mutex_unlock(&thr->philo->death);
-		exit(0);
+		return (1);
 	}
 	pthread_mutex_unlock(&thr->philo->death);
+	return (0);
 }
 
 void	ft_print_status(t_list *thr, char *str)
@@ -67,14 +78,14 @@ void	ft_print_status(t_list *thr, char *str)
 		pthread_mutex_unlock(&thr->philo->print);
 }
 
-void	*ft_threads_eating(t_list *thr)
+int	ft_threads_eating(t_list *thr)
 {
 	pthread_mutex_lock(&thr->fork);
 	ft_print_status(thr, "has taken a fork");
 	pthread_mutex_lock(&thr->next->fork);
 	ft_print_status(thr, "has taken a fork");
-	if (thr->philo->time_must_eat != 0)
-		ft_time_must_eat(thr);
+	pthread_mutex_lock(&thr->philo->eat);
+	pthread_mutex_unlock(&thr->philo->eat);
 	ft_print_status(thr, "is eating");
 	thr->must_eat++;
 	thr->last_eat = get_time(thr->philo);
@@ -84,5 +95,5 @@ void	*ft_threads_eating(t_list *thr)
 	ft_print_status(thr, "is sleeping");
 	ft_go_to_sleep(thr->philo->time_to_sleep);
 	ft_print_status(thr, "is thinking");
-	return (NULL);
+	return (0);
 }

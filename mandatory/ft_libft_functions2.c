@@ -6,7 +6,7 @@
 /*   By: eamghar <eamghar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 18:26:54 by eamghar           #+#    #+#             */
-/*   Updated: 2023/03/19 18:33:05 by eamghar          ###   ########.fr       */
+/*   Updated: 2023/03/19 19:24:24 by eamghar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,20 @@ int	ft_check_int(char **str)
 	return (i);
 }
 
-void	ft_time_must_eat(t_list *thr)
+int	ft_time_must_eat(t_list *thr)
 {
 	int	i;
 
 	i = 0;
 	while (i < thr->philo->philo_num)
 	{
-		if (thr->must_eat == thr->philo->time_must_eat)
+		if (thr->must_eat >= thr->philo->time_must_eat)
 			i++;
 		else
-			return ;
+			return (0);
 		thr = thr->next;
 	}
-	exit(0);
+	return (1);
 }
 
 void	ft_go_to_sleep(long long value)

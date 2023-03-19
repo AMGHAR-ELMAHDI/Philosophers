@@ -6,7 +6,7 @@
 /*   By: eamghar <eamghar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 16:38:53 by eamghar           #+#    #+#             */
-/*   Updated: 2023/03/19 18:29:38 by eamghar          ###   ########.fr       */
+/*   Updated: 2023/03/19 19:13:35 by eamghar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_push
 	struct timeval	start;
 	pthread_mutex_t	print;
 	pthread_mutex_t	death;
+	pthread_mutex_t	eat;
 	int				philo_num;
 	int				time_to_die;
 	int				time_to_eat;
@@ -49,8 +50,8 @@ typedef struct s_push
 	int				time_must_eat;
 }				t_push;
 
-void		ft_param_init(int ac, char **av, t_push *philo);
-void		ft_parcing(int ac, char **av, t_push *philo);
+int			ft_param_init(int ac, char **av, t_push *philo);
+int			ft_parcing(int ac, char **av, t_push *philo);
 void		ft_error(char *str);
 void		ft_lstadd_back(t_list **lst, t_list *new);
 void		ft_lstadd_front(t_list **lst, t_list *new);
@@ -63,12 +64,12 @@ char		**ft_split(char const *s, char c);
 long long	get_time(t_push *philo);
 void		*ft_execute_threads(void *heada);
 void		ft_thread_join(t_push *philo);
-void		*ft_threads_eating(t_list *thr);
-void		ft_create_threads(t_push *philo);
+int			ft_threads_eating(t_list *thr);
+int			ft_create_threads(t_push *philo);
 void		ft_print_status(t_list *thr, char *str);
-void		ft_threads_dying(t_list *thr);
+int			ft_threads_dying(t_list *thr);
 void		ft_go_to_sleep(long long value);
 long long	get_current_time(void);
-void		ft_time_must_eat(t_list *thr);
+int			ft_time_must_eat(t_list *thr);
 
 #endif 

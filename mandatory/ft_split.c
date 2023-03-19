@@ -6,7 +6,7 @@
 /*   By: eamghar <eamghar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 16:38:14 by eamghar           #+#    #+#             */
-/*   Updated: 2023/03/19 18:25:20 by eamghar          ###   ########.fr       */
+/*   Updated: 2023/03/19 18:41:33 by eamghar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static	char	*get_word(const char *s1, int *index, char c)
 	}
 	copy = malloc(sizeof(char) * (word_len + 1));
 	if (!copy)
-		ft_error("Malloc Error");
+		return (NULL);
 	i = 0;
 	while (s1[*index] && s1[*index] != c)
 		copy[i++] = s1[(*index)++];
@@ -83,7 +83,7 @@ char	**ft_split(char const *s, char c)
 	wc = word_count(s, c);
 	arr = malloc(sizeof(char *) * (wc + 1));
 	if (!arr)
-		ft_error("Malloc Error");
+		return (NULL);
 	while (i < wc)
 	{
 		arr[i] = get_word(s, &index, c);
