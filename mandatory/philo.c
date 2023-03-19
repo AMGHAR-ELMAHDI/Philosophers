@@ -6,7 +6,7 @@
 /*   By: eamghar <eamghar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 16:38:38 by eamghar           #+#    #+#             */
-/*   Updated: 2023/03/19 12:23:28 by eamghar          ###   ########.fr       */
+/*   Updated: 2023/03/19 17:04:49 by eamghar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	ft_parcing(int ac, char **av, t_push *philo)
 		ft_error("Time set is under 60ms");
 	while (++philo->i <= philo->philo_num)
 		ft_lstadd_back(&philo->heada, ft_lstnew(philo->i, philo));
-	philo->i = 0;
 }
 
 long long	get_time(t_push *philo)
@@ -66,3 +65,10 @@ long long	get_time(t_push *philo)
 		((philo->start.tv_sec * 1000) + (philo->start.tv_usec / 1000)));
 }
 
+long long	get_current_time()
+{
+	struct timeval	end;
+
+	gettimeofday(&end, NULL);
+	return((end.tv_sec * 1000 ) + (end.tv_usec / 1000));
+}

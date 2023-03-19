@@ -6,7 +6,7 @@
 /*   By: eamghar <eamghar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 16:38:53 by eamghar           #+#    #+#             */
-/*   Updated: 2023/03/19 12:57:51 by eamghar          ###   ########.fr       */
+/*   Updated: 2023/03/19 17:01:01 by eamghar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 typedef struct s_list
 {
 	int				data;
+	int				must_eat;
 	long long		last_eat;
 	struct s_list	*next;
 	struct s_list	*prev;
@@ -38,7 +39,6 @@ typedef struct s_push
 	t_list			*pheada;
 	int				i;
 	int				thr_dead;
-	long long		current_time;
 	struct timeval	start;
 	pthread_mutex_t	print;
 	pthread_mutex_t	death;
@@ -69,6 +69,8 @@ void		*ft_threads_eating(t_list *thr);
 void		ft_create_threads(t_push *philo);
 void		ft_print_status(t_list *thr, char *str);
 void		ft_threads_dying(t_list *thr);
-void		ft_go_to_sleep(size_t value, t_list *thr);
+void		ft_go_to_sleep(long long value);
+long long	get_current_time();
+void	ft_time_must_eat(t_list *thr);
 
 #endif

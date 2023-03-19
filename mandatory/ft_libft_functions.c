@@ -6,7 +6,7 @@
 /*   By: eamghar <eamghar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 16:38:05 by eamghar           #+#    #+#             */
-/*   Updated: 2023/03/18 16:50:30 by eamghar          ###   ########.fr       */
+/*   Updated: 2023/03/19 16:51:13 by eamghar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ t_list	*ft_lstnew(int data, t_push *philo)
 		ft_error("Mutex Init Error");
 	new->philo = philo;
 	new->last_eat = 0;
+	new->must_eat = 0;
 	new->next = new;
 	new->prev = new;
 	new->data = data;
