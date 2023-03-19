@@ -6,7 +6,7 @@
 /*   By: eamghar <eamghar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 15:20:19 by eamghar           #+#    #+#             */
-/*   Updated: 2023/03/19 18:21:45 by eamghar          ###   ########.fr       */
+/*   Updated: 2023/03/19 18:33:00 by eamghar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,6 @@ void	ft_threads_dying(t_list *thr)
 	pthread_mutex_unlock(&thr->philo->death);
 }
 
-void	ft_go_to_sleep(long long value)
-{
-	long long	current;
-
-	current = get_current_time();
-	while (get_current_time() < current + value)
-		usleep(100);
-}
-
 void	ft_print_status(t_list *thr, char *str)
 {
 	pthread_mutex_lock(&thr->philo->print);
@@ -94,20 +85,4 @@ void	*ft_threads_eating(t_list *thr)
 	ft_go_to_sleep(thr->philo->time_to_sleep);
 	ft_print_status(thr, "is thinking");
 	return (NULL);
-}
-
-void	ft_time_must_eat(t_list *thr)
-{
-	int	i;
-
-	i = 0;
-	while (i < thr->philo->philo_num)
-	{
-		if (thr->must_eat == thr->philo->time_must_eat)
-			i++;
-		else
-			return ;
-		thr = thr->next;
-	}
-	exit(0);
 }

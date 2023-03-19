@@ -6,11 +6,11 @@
 /*   By: eamghar <eamghar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 16:38:53 by eamghar           #+#    #+#             */
-/*   Updated: 2023/03/19 18:21:02 by eamghar          ###   ########.fr       */
+/*   Updated: 2023/03/19 18:29:38 by eamghar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#if ndef PHILOSOPHERS_H
+#ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
 # include<stdio.h>
@@ -57,11 +57,9 @@ void		ft_lstadd_front(t_list **lst, t_list *new);
 t_list		*ft_lstnew(int data, t_push *philo);
 void		ft_clear_lst(t_list **lst);
 long		ft_atoi(const char *str);
-char		*ft_strjoin2(char *s1, char *s2);
 int			ft_isdigit(int c);
 int			ft_check_int(char **str);
 char		**ft_split(char const *s, char c);
-int			ft_strlen(char *str);
 long long	get_time(t_push *philo);
 void		*ft_execute_threads(void *heada);
 void		ft_thread_join(t_push *philo);
@@ -70,7 +68,7 @@ void		ft_create_threads(t_push *philo);
 void		ft_print_status(t_list *thr, char *str);
 void		ft_threads_dying(t_list *thr);
 void		ft_go_to_sleep(long long value);
-long long	get_current_time();
-void	ft_time_must_eat(t_list *thr);
+long long	get_current_time(void);
+void		ft_time_must_eat(t_list *thr);
 
 #endif 
