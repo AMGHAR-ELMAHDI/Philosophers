@@ -6,7 +6,7 @@
 /*   By: eamghar <eamghar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 15:20:19 by eamghar           #+#    #+#             */
-/*   Updated: 2023/03/19 19:20:43 by eamghar          ###   ########.fr       */
+/*   Updated: 2023/03/20 14:45:03 by eamghar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ int	ft_create_threads(t_push *philo)
 	}
 	while (1)
 	{
-		if (ft_threads_dying(philo->heada) == 1)
-			return (1);
 		if (philo->time_must_eat != 0)
 		{
 			if (ft_time_must_eat(philo->heada) == 1)
-				return (1);
+				break;
 		}
+		if (ft_threads_dying(philo->heada) == 1)
+			return (1);
 		philo->heada = philo->heada->next;
 	}
 	return (0);
@@ -54,28 +54,6 @@ void	*ft_execute_threads(void *heada)
 			return (NULL);
 	}
 	return (0);
-}
-
-int	ft_threads_dying(t_list *thr)
-{
-	pthread_mutex_lock(&thr->philo->death);
-	if ((get_time(thr->philo) - (thr->last_eat)) > thr->philo->time_to_die)
-	{
-		thr->philo->thr_dead = 1;
-		ft_print_status(thr, "died");
-		pthread_mutex_unlock(&thr->philo->death);
-		return (1);
-	}
-	pthread_mutex_unlock(&thr->philo->death);
-	return (0);
-}
-
-void	ft_print_status(t_list *thr, char *str)
-{
-	pthread_mutex_lock(&thr->philo->print);
-	printf("%lld\t%d\t%s\n", get_time(thr->philo), thr->data, str);
-	if (thr->philo->thr_dead == 0)
-		pthread_mutex_unlock(&thr->philo->print);
 }
 
 int	ft_threads_eating(t_list *thr)
@@ -95,5 +73,35 @@ int	ft_threads_eating(t_list *thr)
 	ft_print_status(thr, "is sleeping");
 	ft_go_to_sleep(thr->philo->time_to_sleep);
 	ft_print_status(thr, "is thinking");
+	return (0);
+}
+
+int	ft_time_must_eat(t_list *thr)
+{
+	int	i;
+
+	i = 0;
+	while (i < thr->philo->philo_num)
+	{
+		if (thr->must_eat >= thr->philo->time_must_eat)
+			i++;
+		else
+			return (0);
+		thr = thr->next;
+	}
+	return (1);
+}
+
+int	ft_threads_dying(t_list *thr)
+{
+	pthread_mutex_lock(&thr->philo->death);
+	if ((get_time(thr->philo) - (thr->last_eat)) > thr->philo->time_to_die)
+	{
+		thr->philo->thr_dead = 1;
+		ft_print_status(thr, "died");
+		pthread_mutex_unlock(&thr->philo->death);
+		return (1);
+	}
+	pthread_mutex_unlock(&thr->philo->death);
 	return (0);
 }
