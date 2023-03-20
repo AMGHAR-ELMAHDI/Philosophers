@@ -6,38 +6,11 @@
 /*   By: eamghar <eamghar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 18:26:54 by eamghar           #+#    #+#             */
-/*   Updated: 2023/03/20 14:44:08 by eamghar          ###   ########.fr       */
+/*   Updated: 2023/03/20 18:58:45 by eamghar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
-
-int	ft_isdigit(int c)
-{
-	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
-}
-
-int	ft_check_int(char **str)
-{
-	int		i;
-	int		j;
-
-	i = 0;
-	while (str[i])
-	{
-		j = 0;
-		while (str[i][j])
-		{
-			if (!ft_isdigit(str[i][j]))
-				return (0);
-			j++;
-		}
-		i++;
-	}
-	return (i);
-}
 
 void	ft_go_to_sleep(long long value)
 {

@@ -6,7 +6,7 @@
 /*   By: eamghar <eamghar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 16:38:05 by eamghar           #+#    #+#             */
-/*   Updated: 2023/03/19 18:39:17 by eamghar          ###   ########.fr       */
+/*   Updated: 2023/03/20 18:58:42 by eamghar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,25 +55,6 @@ t_list	*ft_lstnew(int data, t_push *philo)
 	return (new);
 }
 
-void	ft_clear_lst(t_list **lst)
-{
-	t_list	*nextlst;
-	t_list	*currentlst;
-
-	if (!lst)
-		return ;
-	nextlst = *lst;
-	while (*lst)
-	{
-		currentlst = nextlst;
-		nextlst = nextlst->next;
-		free(currentlst);
-		if (nextlst == *lst)
-			break ;
-	}
-	*lst = NULL;
-}
-
 long	ft_atoi(const char *str)
 {
 	int			i;
@@ -99,8 +80,29 @@ long	ft_atoi(const char *str)
 	return (result * sign);
 }
 
-void	ft_error(char *str)
+int	ft_isdigit(int c)
 {
-	printf("ERROR\n%s\n", str);
-	exit(1);
+	if (c >= '0' && c <= '9')
+		return (1);
+	return (0);
+}
+
+int	ft_check_int(char **str)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	while (str[i])
+	{
+		j = 0;
+		while (str[i][j])
+		{
+			if (!ft_isdigit(str[i][j]))
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (i);
 }

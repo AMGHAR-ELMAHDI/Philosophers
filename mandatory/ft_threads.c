@@ -6,7 +6,7 @@
 /*   By: eamghar <eamghar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 15:20:19 by eamghar           #+#    #+#             */
-/*   Updated: 2023/03/20 14:45:03 by eamghar          ###   ########.fr       */
+/*   Updated: 2023/03/20 19:09:02 by eamghar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_create_threads(t_push *philo)
 	gettimeofday(&philo->start, NULL);
 	while (philo->heada)
 	{
-		if (philo->heada->data % 2)
+		if (philo->heada->data % 2 && philo->philo_num != 1)
 			usleep(200);
 		philo->heada->last_eat = get_time(philo);
 		if (pthread_create(&philo->heada->id, NULL, \
@@ -31,10 +31,11 @@ int	ft_create_threads(t_push *philo)
 	}
 	while (1)
 	{
+		usleep(1000);
 		if (philo->time_must_eat != 0)
 		{
 			if (ft_time_must_eat(philo->heada) == 1)
-				break;
+				break ;
 		}
 		if (ft_threads_dying(philo->heada) == 1)
 			return (1);

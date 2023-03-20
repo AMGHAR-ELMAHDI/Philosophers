@@ -6,7 +6,7 @@
 /*   By: eamghar <eamghar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 16:38:53 by eamghar           #+#    #+#             */
-/*   Updated: 2023/03/19 19:13:35 by eamghar          ###   ########.fr       */
+/*   Updated: 2023/03/20 18:57:41 by eamghar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,11 @@ typedef struct s_push
 
 int			ft_param_init(int ac, char **av, t_push *philo);
 int			ft_parcing(int ac, char **av, t_push *philo);
-void		ft_error(char *str);
 void		ft_lstadd_back(t_list **lst, t_list *new);
-void		ft_lstadd_front(t_list **lst, t_list *new);
 t_list		*ft_lstnew(int data, t_push *philo);
-void		ft_clear_lst(t_list **lst);
 long		ft_atoi(const char *str);
 int			ft_isdigit(int c);
 int			ft_check_int(char **str);
-char		**ft_split(char const *s, char c);
 long long	get_time(t_push *philo);
 void		*ft_execute_threads(void *heada);
 void		ft_thread_join(t_push *philo);

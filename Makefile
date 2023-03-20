@@ -6,7 +6,7 @@
 #    By: eamghar <eamghar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/16 16:38:48 by eamghar           #+#    #+#              #
-#    Updated: 2023/03/19 19:27:34 by eamghar          ###   ########.fr        #
+#    Updated: 2023/03/20 18:59:40 by eamghar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,6 @@ NAME = philo
 
 SRC =	mandatory/ft_libft_functions.c \
 		mandatory/ft_libft_functions2.c \
-		mandatory/ft_split.c \
 		mandatory/ft_threads.c \
 		mandatory/philo.c \
 
