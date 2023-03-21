@@ -6,7 +6,7 @@
 /*   By: eamghar <eamghar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 18:26:54 by eamghar           #+#    #+#             */
-/*   Updated: 2023/03/21 14:12:25 by eamghar          ###   ########.fr       */
+/*   Updated: 2023/03/21 15:11:05 by eamghar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_go_to_sleep(long long value)
 
 void	ft_print_status(t_list *thr, char *str)
 {
-	if(thr->philo->thr_print == 0)
+	if (thr->philo->thr_print == 0)
 	{
 		pthread_mutex_lock(&thr->philo->print);
 		printf("%lld\t%d\t%s\n", get_time(thr->philo), thr->data, str);

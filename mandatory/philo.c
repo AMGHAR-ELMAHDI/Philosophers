@@ -6,7 +6,7 @@
 /*   By: eamghar <eamghar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 16:38:38 by eamghar           #+#    #+#             */
-/*   Updated: 2023/03/21 14:20:19 by eamghar          ###   ########.fr       */
+/*   Updated: 2023/03/21 15:11:53 by eamghar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,16 @@ int	main(int ac, char **av)
 
 	philo.heada = NULL;
 	if (ft_param_init(ac, av, &philo) == 1)
-	{
-		printf("ERROR\n");
 		return (0);
-	}
 	if (ft_parcing(ac, av, &philo) == 1)
-	{
-		printf("ERROR\n");
 		return (0);
-	}	
 	if (ft_create_threads(&philo) == 1)
 	{
 		philo.i = -1;
-		while(++philo.i < philo.philo_num)
+		while (++philo.i < philo.philo_num)
 		{
 			if (pthread_mutex_destroy(&philo.heada->fork) != 0)
-				return(1);
+				return (1);
 			philo.heada = philo.heada->next;
 		}
 		if (pthread_mutex_destroy(&philo.print) != 0)
@@ -41,7 +35,7 @@ int	main(int ac, char **av)
 		if (pthread_mutex_destroy(&philo.death) != 0)
 			return (1);
 		if (pthread_mutex_destroy(&philo.eat) != 0)
-			return (1);	
+			return (1);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: eamghar <eamghar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 15:20:19 by eamghar           #+#    #+#             */
-/*   Updated: 2023/03/21 14:11:51 by eamghar          ###   ########.fr       */
+/*   Updated: 2023/03/21 18:04:01 by eamghar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_create_threads(t_push *philo)
 		if (philo->time_must_eat != 0)
 		{
 			if (ft_time_must_eat(philo->heada) == 1)
-				return(1);
+				return (1);
 		}
 		if (ft_threads_dying(philo->heada) == 1)
 			return (1);
@@ -50,6 +50,8 @@ void	*ft_execute_threads(void *heada)
 	{
 		if (thr->data % 2)
 			usleep(200);
+		if (thr->philo->philo_num > 150)
+			usleep(200);
 		if (ft_threads_eating(thr) == 1)
 			return (NULL);
 	}
@@ -58,24 +60,19 @@ void	*ft_execute_threads(void *heada)
 
 int	ft_threads_eating(t_list *thr)
 {
-	int	i = 0;
 	pthread_mutex_lock(&thr->fork);
 	ft_print_status(thr, "has taken a fork");
-	
 	pthread_mutex_lock(&thr->next->fork);
 	ft_print_status(thr, "has taken a fork");
-	
 	pthread_mutex_lock(&thr->philo->eat);
 	ft_print_status(thr, "is eating");
 	thr->last_eat = get_time(thr->philo);
 	thr->must_eat++;
 	pthread_mutex_unlock(&thr->philo->eat);
 	ft_go_to_sleep(thr->philo->time_to_eat);
-	
 	pthread_mutex_unlock(&thr->fork);
 	pthread_mutex_unlock(&thr->next->fork);
 	ft_print_status(thr, "is sleeping");
-
 	ft_go_to_sleep(thr->philo->time_to_sleep);
 	ft_print_status(thr, "is thinking");
 	return (0);
@@ -107,8 +104,6 @@ int	ft_threads_dying(t_list *thr)
 		thr->philo->thr_dead = 1;
 		thr->philo->thr_print = 1;
 		pthread_mutex_lock(&thr->philo->print);
-		// pthread_mutex_unlock(&thr->philo->death);
-		// pthread_mutex_unlock(&thr->philo->death);
 		return (1);
 	}
 	pthread_mutex_unlock(&thr->philo->death);
