@@ -6,7 +6,7 @@
 /*   By: eamghar <eamghar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 16:38:38 by eamghar           #+#    #+#             */
-/*   Updated: 2023/03/19 19:14:30 by eamghar          ###   ########.fr       */
+/*   Updated: 2023/03/21 14:20:19 by eamghar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,21 @@ int	main(int ac, char **av)
 		return (0);
 	}	
 	if (ft_create_threads(&philo) == 1)
-		return (0);
+	{
+		philo.i = -1;
+		while(++philo.i < philo.philo_num)
+		{
+			if (pthread_mutex_destroy(&philo.heada->fork) != 0)
+				return(1);
+			philo.heada = philo.heada->next;
+		}
+		if (pthread_mutex_destroy(&philo.print) != 0)
+			return (1);
+		if (pthread_mutex_destroy(&philo.death) != 0)
+			return (1);
+		if (pthread_mutex_destroy(&philo.eat) != 0)
+			return (1);	
+	}
 }
 
 int	ft_param_init(int ac, char **av, t_push *philo)
@@ -36,6 +50,7 @@ int	ft_param_init(int ac, char **av, t_push *philo)
 	if (ac < 5 || ac > 6)
 		return (1);
 	philo->thr_dead = 0;
+	philo->thr_print = 0;
 	philo->philo_num = ft_atoi(av[1]);
 	philo->time_to_die = ft_atoi(av[2]);
 	philo->time_to_eat = ft_atoi(av[3]);
